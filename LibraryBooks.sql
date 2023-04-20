@@ -22,22 +22,30 @@ CREATE TABLE customers (
 CustomerNum int,
 FirstName varchar (255),
 LastName varchar(255),
-DateOfBirth varchar(255),
+DateOfBirth TIMESTAMP NOT NULL,
 PostCode varchar (255),
 PRIMARY KEY  (CustomerNum)
+);
+
+CREATE TABLE staff (
+StaffNum int,
+FirstName varchar (255),
+LastName varchar(255),
+DateOfBirth TIMESTAMP NOT NULL,
+Roles varchar (255),
+PRIMARY KEY  (StaffNum)
 );
 
 CREATE TABLE activeBorrows (
 ReferenceId int NOT NULL,
 LibraryRefNum int,
 CustomerNum int,
+StaffNum int,
 DateOfBorrow TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
-Title varchar (255),
-ISBN varchar (255),
+PRIMARY KEY  (ReferenceId),
 FOREIGN KEY (LibraryRefNum) REFERENCES books (LibraryRefNum),
 FOREIGN KEY (CustomerNum) REFERENCES customers (CustomerNum),
-FOREIGN KEY (Title) REFERENCES books (Title),
-FOREIGN KEY (ISBN) REFERENCES books (ISBN)
+FOREIGN KEY (StaffNum) REFERENCES staff (StaffNum)
 );
 
 INSERT INTO Books VALUES (1, 'The Witches', 'Roald Dahl', 9780141349947, 'kids'),
@@ -45,4 +53,6 @@ INSERT INTO Books VALUES (1, 'The Witches', 'Roald Dahl', 9780141349947, 'kids')
 
 INSERT INTO Customers VALUES (100, 'George', 'Popa', '1990-02-20 18:00:00', 'N20 2DS');
 
-INSERT INTO activeBorrows VALUES (1001, 2, 100, '2023-04-11 10:00:00', 'The Twits', 9780141349916);
+INSERT INTO Staff VALUES (1000001, 'Robert', 'Smith', '1992-03-11 00:00:00', 'counter');
+
+INSERT INTO activeBorrows VALUES (7852175, 2, 100, 10000001, '2023-04-11 10:00:00');
